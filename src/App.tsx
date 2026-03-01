@@ -15,7 +15,8 @@ import "./App.css";
 // }
 
 export default function App() {
-  const [carSrc, setCarSrc] = useState("/car.png");
+  const carImageUrl = `${import.meta.env.BASE_URL}car.png`;
+  const [carSrc, setCarSrc] = useState(carImageUrl);
   const scrollSectionRef = useRef<HTMLElement>(null);
   const laneRef = useRef<HTMLDivElement>(null);
   const carRef = useRef<HTMLImageElement>(null);
@@ -33,7 +34,7 @@ export default function App() {
 
     const createTransparentCar = async () => {
       const img = new Image();
-      img.src = "/car.png";
+      img.src = carImageUrl;
       await img.decode();
 
       const canvas = document.createElement("canvas");
@@ -148,7 +149,7 @@ export default function App() {
     };
 
     createTransparentCar().catch(() => {
-      if (!cancelled) setCarSrc("/car.png");
+      if (!cancelled) setCarSrc(carImageUrl);
     });
 
     return () => {
